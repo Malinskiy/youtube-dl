@@ -32,17 +32,19 @@ class GameLeapIE(OnceIE):
         items = map(lambda x:
                     {
                         'id': x['_id'],
-                        'url': x['item']['sources']['hlsFree'],
+                        'url': x['item']['sources']['hlsPremium'],
                         'section': section_id_to_name[x['section']],
                         'name': x['item']['title'],
                     }, items)
 
         entries = []
         for item in items:
+            formats = self._extract_m3u8_formats(item['url'], item['id'])
+            self._sort_formats(formats, ('preference', 'height', 'width', 'fps', 'tbr', 'format_id'))
             entries.append(
                 {
                     'id': item['id'],
-                    'formats': self._extract_m3u8_formats(item['url'], item['id']),
+                    'formats': formats,
                     'chapter': item['section'],
                     'title': item['name'],
                 }
