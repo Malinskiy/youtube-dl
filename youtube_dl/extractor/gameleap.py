@@ -14,7 +14,7 @@ from ..utils import (
 
 
 class GameLeapIE(OnceIE):
-    _VALID_URL = r'https?://(?:www\.)?gameleap\.com/dota/course/.+~(?P<id>crs_[0-9a-zA-Z]+_)/.+'
+    _VALID_URL = r'https?://(?:www\.)?gameleap\.com/dota/course/.+~(?P<id>crs[0-9a-zA-Z_]+)/.+'
     _TESTS = []
 
     def _real_extract(self, url):
